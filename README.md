@@ -9,7 +9,7 @@ NeRF (Neural Radiance Field) is a method for reconstructing 3D scenes from 2D im
 To preprocess the image dataset, run the following command:
 
 ```bash
-python preprocess.py --input_path <> --output_path <> --H <> --W <> --focal <>
+python preprocess.py --input_path < > --output_path < > --H < > --W < > --focal < >
 ```
 
 Image dataset should look like: 
