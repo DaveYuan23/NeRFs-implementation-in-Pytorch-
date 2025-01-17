@@ -5,6 +5,15 @@ This is a simple PyTorch implementation of the original [NeRF model](https://git
 ## Introduction
 NeRF (Neural Radiance Field) is a method for reconstructing 3D scenes from 2D images. This repository provides simple Pytorch implementations of NeRF, Instant-NGP, and Plenoxels, covering key steps such as preprocessing, model formulation, and rendering.
 
+## output
+### NGP
+
+https://github.com/user-attachments/assets/503fa6ce-b7ea-4841-b23a-087aabfd45d1
+
+### Plenoxels
+
+https://github.com/user-attachments/assets/7c1ee0cc-57ff-4040-83fa-8a52a59627dd
+
 ## Preprocessing
 To preprocess the image dataset, run the following command:
 
