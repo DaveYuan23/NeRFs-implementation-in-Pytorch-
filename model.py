@@ -129,7 +129,7 @@ class NGP(nn.Module):
         return features
 
 class Plenoxels(nn.Module):
-    def __init__(self,device = 'cpu', Nl = [256], scale = 1.5):
+    def __init__(self,device = 'cpu', Nl = 256, scale = 1.5):
         super(Plenoxels, self).__init__()
         self.Nl  = Nl
         self.scale = scale
@@ -143,7 +143,7 @@ class Plenoxels(nn.Module):
         sigma = torch.zeros((x.shape[0]), device=x.device)
 
         x /= self.scale
-        mask = (x[:, 0].abs() < .5) & (x[:, 1].abs() < .5) & (x[:, 2].abs() < .5) # keep the central points
+        mask = (x[:, 0].abs() < 1) & (x[:, 1].abs() < 1) & (x[:, 2].abs() < 1) # keep the central points
         output = self.get_features(x,mask)
         sigma[mask], k = self.relu(output[:,0]), output[:,1:]
         color[mask] = self.SHLayer(k.reshape((-1,3,9)), d[mask])

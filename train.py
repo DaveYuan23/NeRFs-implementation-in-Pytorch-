@@ -60,6 +60,7 @@ if __name__ == "__main__":
 
     # Common arguments
     parser.add_argument('--model', type=str, required=True, choices=['nerf', 'NGP', 'Plenoxels'], help="Model type")
+    parser.add_argument('--input_path', type=str, required=True, help="Path to input file or directory")
     parser.add_argument('--epochs', type=int, default=10, help="Number of epochs")
     parser.add_argument('--device', type=str, default='cuda' if torch.cuda.is_available() else 'cpu', help="Device to use")
     parser.add_argument('--near', type=float, default=2.0, help="Near plane distance")
@@ -97,7 +98,7 @@ if __name__ == "__main__":
     print(f"Using device: {device}")
 
     # Load dataset
-    loaded = torch.load('dataset.pt')
+    loaded = torch.load(args.input_path+'dataset.pt')
     training_data = loaded['training']
     testing_data = loaded['testing']
 
@@ -117,7 +118,7 @@ if __name__ == "__main__":
             {"params": model.ffn1.parameters(), "lr": args.lr,  "betas": (0.9, 0.99), "eps": 1e-15, "weight_decay": 10**-6},
             {"params": model.ffn2.parameters(), "lr": args.lr,  "betas": (0.9, 0.99), "eps": 1e-15, "weight_decay": 10**-6}])
     elif args.model == 'Plenoxels':
-        model = Plenoxels(N=args.Nl, scale=args.scale).to(device)
+        model = Plenoxels(Nl=args.Nl, scale=args.scale).to(device)
         optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
 
     # Training parameters

@@ -4,8 +4,9 @@ import numpy as np
 from utils import get_rays
 import json
 from PIL import Image
+import argparse
 
-def process_json_and_save(file_path, output_path, H, W,focal):
+def process_json_and_save(file_path, H, W,focal):
     with open(file_path+'./cameras.json', 'r') as f:
         data = json.load(f)
     N = len(data['frames'])-1
@@ -20,8 +21,7 @@ def process_json_and_save(file_path, output_path, H, W,focal):
             images.append(np.asarray(img.convert("RGB")) / 255.0)  
 
     images_stack = np.stack(images, axis=0)
-
-    np.savez(output_path, images=images_stack, poses=poses,focal=focal)   
+    return images_stack, poses, focal
 
 def get_train_test_data(images, focal, poses,ratio):
     # training dataset
@@ -54,12 +54,20 @@ def get_train_test_data(images, focal, poses,ratio):
 
 if __name__ == "__main__":
 
-    path = 'tiny_nerf_data.npz'
-    data = np.load(path)
-    images = data['images']
-    poses = data['poses']
-    focal = data['focal']
+    parser = argparse.ArgumentParser(description="Data preprocessing")
+
+    # Common arguments
+    parser.add_argument('--input_path', type=str, required=True, help="Path to input file or directory")
+    parser.add_argument('--output_path', type=str, required=True, help="Path to save processed data")
+    parser.add_argument('--H', type=int, required=True, help="Height of images")
+    parser.add_argument('--W', type=int,  required=True, help="Width of images")
+    parser.add_argument('--focal', type=float, default=10, help="Focol of camera")
+
+
+    args = parser.parse_args()
+
+    images, poses, focal = process_json_and_save(args.input_path, args.H, args.W,args.focal)
 
     training_data, testing_data = get_train_test_data(images, focal, poses, ratio= 0.95)
-    torch.save({'training': training_data, 'testing': testing_data}, 'dataset.pt')
+    torch.save({'training': training_data, 'testing': testing_data}, args.output_path+'dataset.pt')
 
