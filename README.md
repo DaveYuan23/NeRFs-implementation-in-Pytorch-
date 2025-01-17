@@ -8,11 +8,11 @@ NeRF (Neural Radiance Field) is a method for reconstructing 3D scenes from 2D im
 ## output
 ### NGP
 
-https://github.com/DaveYuan23/NeRFs-implementation-in-Pytorch-/issues/1#issue-2794574670
+https://github.com/user-attachments/assets/63f2e434-2010-4442-a599-5a0db96d09c3
 
 ### Plenoxels
 
-https://github.com/DaveYuan23/NeRFs-implementation-in-Pytorch-/issues/2#issue-2794575967
+https://github.com/user-attachments/assets/5b5a1e3f-2b38-41a9-aaf8-1e858cb5c6d5
 
 ## Preprocessing
 To preprocess the image dataset, run the following command:
